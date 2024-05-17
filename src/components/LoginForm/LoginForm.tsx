@@ -3,10 +3,12 @@ import styles from './LoginForm.module.css'
 import { RiLoginBoxFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { saveLogin } from "../../redux/actions/actions";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const [loginInfos, setLoginInfos] = useState({email: '', password: ''})
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginInfos((prev) => (
@@ -29,6 +31,7 @@ function LoginForm() {
 
   const handleLogin = () => {
     dispatch(saveLogin(loginInfos))
+    navigate('/wallet')
   }
 
   return (

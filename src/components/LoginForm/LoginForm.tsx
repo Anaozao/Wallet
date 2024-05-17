@@ -1,7 +1,12 @@
 import React, { useState } from "react";
+import styles from './LoginForm.module.css'
+import { RiLoginBoxFill } from "react-icons/ri";
+import { useDispatch } from "react-redux";
+import { saveLogin } from "../../redux/actions/actions";
 
 function LoginForm() {
   const [loginInfos, setLoginInfos] = useState({email: '', password: ''})
+  const dispatch = useDispatch()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginInfos((prev) => (
@@ -22,31 +27,44 @@ function LoginForm() {
     )
   }
 
+  const handleLogin = () => {
+    dispatch(saveLogin(loginInfos))
+  }
+
   return (
-    <section>
-      <form>
-        <div>
-          <label htmlFor="email-input">Email: </label>
+    <section className={styles.section}>
+      <form className={styles.form}>
+        <div className={styles.loginLogoDiv}>
+        <RiLoginBoxFill className={styles.loginLogo}/> Login
+        </div>
+        <div className={styles.emailDiv}>
+          <label htmlFor="email-input"></label>
           <input
+            placeholder="E-mail"
+            className={styles.emailInput}
             type="email"
             id="email-input"
             name="email"
             onChange={ handleChange }
             />
         </div>
-        <div>
-          <label htmlFor="password-input">Senha: </label>
+        <div className={styles.passwordDiv}>
+          <label htmlFor="password-input"></label>
           <input
+            placeholder="Senha"
+            className={styles.passwordInput}
             type="password"
             id="password-input"
             name="password"
             onChange={ handleChange }
             />
         </div>
-        <div>
+        <div className={styles.buttonDiv}>
           <button
+            className={styles.button}
             type="button"
             disabled={ validadeLogin() }
+            onClick={ handleLogin }
           >
             Entrar
           </button>

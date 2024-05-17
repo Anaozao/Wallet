@@ -1,0 +1,78 @@
+.section {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height:40%; 
+  width: 40%;
+}
+
+.form {
+  align-items: center;
+  background-color: rgb(206, 206, 206);
+  border: 1px solid rgba(255, 255, 255, 0.295);
+  border-radius: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-direction: column;
+  width: 70%;
+  height: 70%;
+}
+
+.loginLogoDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginLogo {
+  font-size: 30px;
+}
+
+.emailDiv {
+  text-align: center;
+  width: 50%;
+}
+
+.emailInput {
+  height: 30px;
+  width: 80%;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.passwordDiv {
+  text-align: center;
+  width: 50%;
+}
+
+.passwordInput {
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  width: 80%;
+  text-align: center;
+}
+
+.buttonDiv {
+  text-align: center;
+  width: 50%;
+}
+
+.button {
+  background-color: green;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px black; 
+  width: 80%;
+  height: 30px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.button:active {
+  background-color: rgba(0, 128, 0, 0.788)
+}

@@ -1,4 +1,4 @@
-import { SaveLogin } from "../../types"
+import { ActionType } from "../../types"
 import { SAVE_LOGIN } from "../actions/actions"
 
 
@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   password: ''
 }
 
-const loginReducer = (state = INITIAL_STATE, action: SaveLogin) => {
+const loginReducer = (state = INITIAL_STATE, action: ActionType) => {
   switch (action.type) {
     case SAVE_LOGIN:
       return {

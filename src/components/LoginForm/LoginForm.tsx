@@ -31,6 +31,7 @@ function LoginForm() {
 
   const handleLogin = () => {
     dispatch(saveLogin(loginInfos))
+    localStorage.setItem('loginEmail', JSON.stringify(loginInfos.email))
     navigate('/wallet')
   }
 

@@ -4,6 +4,7 @@ import { fetchApi } from "../../utils/API"
 export const SAVE_LOGIN = 'SAVE_LOGIN'
 export const GET_CURRENCIES = 'GET_CURRENCIES'
 export const SAVE_EXPENSE = 'SAVE_EXPENSE'
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE'
 
 export const saveLogin = (payload: LoginType) => {
   return {
@@ -32,9 +33,27 @@ export function currenciesNames() {
   }
 }
 
-export const saveExpense = (payload: ExpenseType) => {
+const getExpense = (payload: ExpenseType) => {
   return {
     type: SAVE_EXPENSE,
+    payload,
+  }
+}
+
+export function saveExpenses(expense: ExpenseType) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const data = await fetchApi('https://economia.awesomeapi.com.br/json/all')
+      dispatch(getExpense({...expense, exchangeRates: data }))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+export const removeExpense = (payload: ExpenseType[]) => {
+  return {
+    type: REMOVE_EXPENSE,
     payload,
   }
 }

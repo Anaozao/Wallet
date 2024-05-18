@@ -18,6 +18,7 @@ export type ReduxState = {
   }
   walletReducer: {
     currencies: string[]
+    expenses: ExpenseType[]
   }
 }
 
@@ -46,4 +47,15 @@ export type ExpenseType = {
   category: string,
   description: string,
   id: number,
+  exchangeRates?: any
 }
+
+// export type TotalType = {
+//   value: string,
+//   currency: string,
+//   method: string,
+//   category: string,
+//   description: string,
+//   id: number,
+//   exchangeRates: CurrencyType[]
+// }

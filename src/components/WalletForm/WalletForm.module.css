@@ -1,0 +1,33 @@
+.form {
+  background-color: yellow;
+  display: flex;
+  justify-content: space-around;
+  padding: 30px 0;
+}
+
+.inputs {
+  border: solid black 1px;
+  border-radius: 5px;
+  height: 25px;
+  padding-left: 5px;
+  width: 150px;
+  font-size: 14px;
+}
+
+.button {
+  border: solid rgb(128, 128, 128) 1px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px white;
+  color: white;
+  font-size: 14px;
+  height: 25px;
+  width: 150px;
+  background-color: grey;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.button:active {
+  background-color: rgba(128, 128, 128, 0.849);
+}

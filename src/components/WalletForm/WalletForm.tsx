@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux"
-import { ExpenseType, ReduxState } from "../../types"
+import { Dispatch, ExpenseType, ReduxState } from "../../types"
 import { useState } from "react"
-import { saveExpense } from "../../redux/actions/actions";
+import { saveExpenses } from "../../redux/actions/actions";
+import styles from './WalletForm.module.css'
 
 function WalletForm() {
   const { currencies } = useSelector((state: ReduxState) => state.walletReducer)
-  const dispatch = useDispatch();
+  const dispatch: Dispatch = useDispatch();
   const [expense, setExpense] = useState<ExpenseType>({
     value: '',
     currency: 'USD',
@@ -33,7 +34,7 @@ function WalletForm() {
   }
 
   const handleSave = () => {
-    dispatch(saveExpense(expense))
+    dispatch(saveExpenses(expense))
     setExpense({
       value: '',
       currency: 'USD',
@@ -44,12 +45,20 @@ function WalletForm() {
     })
   }
 
+  const validadeForm = () => {
+    const { value, description } = expense
+    return (
+      value.length < 1
+      || description.length < 2
+    )
+  }
+
   return (
-    <main>
-      <form>
-        <div>
+      <form className={styles.form}>
+        <div className={styles.inputDivs}>
           <label htmlFor="value-input">Valor: </label>
           <input
+            className={styles.inputs}
             type="text"
             id="value-input"
             name="value"
@@ -58,9 +67,10 @@ function WalletForm() {
           />
         </div>
 
-        <div>
+        <div className={styles.inputDivs}>
           <label htmlFor="currency-input">Moeda: </label>
           <select
+            className={styles.inputs}
             onChange={ handleChange }
             name="currency"
             id="currency-input"
@@ -75,9 +85,10 @@ function WalletForm() {
             ))}
           </select>
         </div>
-        <div>
+        <div className={styles.inputDivs}>
           <label htmlFor="method">Método de pagamento: </label>
           <select
+            className={styles.inputs}
             onChange={ handleChange }
             name="method"
             id="method"
@@ -87,9 +98,10 @@ function WalletForm() {
             <option value="Cartão de crédito">Cartão de crédito</option>
           </select>
         </div>
-        <div>
+        <div className={styles.inputDivs}>
           <label htmlFor="category">Categoria: </label>
           <select
+            className={styles.inputs}
             onChange={ handleChange }
             name="category"
             id="category"
@@ -101,9 +113,10 @@ function WalletForm() {
             <option value="Saúde">Saúde</option>
           </select>
         </div>
-        <div>
+        <div className={styles.inputDivs}>
           <label htmlFor="description">Descrição: </label>
           <input
+            className={styles.inputs}
             type="text"
             name="description"
             id="description"
@@ -111,16 +124,17 @@ function WalletForm() {
             onChange={ handleChange }
           />
         </div>
-        <div>
+        <div className={`${styles.inputDivs} ${styles.buttonDiv}`}>
           <button
+            className={styles.button}
             type="button"
             onClick={ handleSave }
+            disabled={ validadeForm() }
           >
             Adicionar despesa
           </button>
         </div>
       </form>
-    </main>
   )
 }
 

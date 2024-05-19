@@ -1,0 +1,5 @@
+.wallet {
+  display: grid;
+  grid-template-rows: 10% 10% 80%;
+  height: 100%;
+}

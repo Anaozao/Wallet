@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { Dispatch, ExpenseType, ReduxState } from "../../types"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { editExpenses, saveExpenses, setEdit, } from "../../redux/actions/actions";
 import styles from './WalletForm.module.css'
 
@@ -9,6 +9,7 @@ function WalletForm() {
   const { expenses } = useSelector((state: ReduxState) => state.walletReducer)
   const dispatch: Dispatch = useDispatch();
   const { edit } = useSelector((state: ReduxState) => state.walletReducer)
+  const [formStyle, setFormStyle] = useState(styles.form)
   const [expense, setExpense] = useState<ExpenseType>({
     value: '',
     currency: 'USD',
@@ -77,8 +78,16 @@ function WalletForm() {
     dispatch(setEdit({edit: false, expenseId: 0}))
   }
 
+  useEffect(() => {
+    if (edit.edit) {
+      setFormStyle(styles.editForm)
+    } else {
+      setFormStyle(styles.form)
+    }
+  }, [edit.edit])
+
   return (
-      <form className={styles.form}>
+      <form className={formStyle}>
         <div className={styles.inputDivs}>
           <label htmlFor="value-input">Valor: </label>
           <input
@@ -117,7 +126,7 @@ function WalletForm() {
             name="method"
             id="method"
           >
-            <option value="Dinheiro">Dinehiro</option>
+            <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de débito">Cartão de débito</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
           </select>
@@ -159,14 +168,23 @@ function WalletForm() {
               Adicionar despesa
             </button>
           ): (
-            <button
-              className={styles.button}
-              type="button"
-              onClick={ confirmEdit }
-              disabled={ validadeForm() }
-            >
-              Editar despesa
-            </button>
+            <div className={styles.editBtnsDiv}>
+              <button
+                className={styles.button}
+                type="button"
+                onClick={ confirmEdit }
+                disabled={ validadeForm() }
+              >
+                Editar despesa
+              </button>
+
+              <button
+                className={styles.button}
+                onClick={() => dispatch(setEdit({edit: false, expenseId: 0}))}
+              >
+                Cancelar
+              </button>
+            </div>
           )}
         </div>
       </form>

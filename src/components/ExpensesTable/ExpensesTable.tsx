@@ -6,6 +6,7 @@ import { removeExpense, setEdit } from "../../redux/actions/actions";
 function ExpensesTable() {
   const dispatch = useDispatch()
   const { expenses } = useSelector((state: ReduxState) => state.walletReducer)
+  const { edit } = useSelector((state: ReduxState) => state.walletReducer.edit)
 
 
   const removeItem = (id: number) => {
@@ -45,8 +46,20 @@ function ExpensesTable() {
               <td>{(Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)}</td>
               <td>Real</td>
               <td className={styles.buttonTd}>
-                <button className={styles.editBtn} onClick={() => handleEdit(id)}>Editar</button>
-                <button className={styles.removeBtn} onClick={() =>  removeItem(id) }>Excluir</button>
+                <button
+                  disabled={edit}
+                  className={styles.editBtn}
+                  onClick={() => handleEdit(id)}
+                >
+                  Editar
+                </button>
+                <button
+                  disabled={edit}
+                  className={styles.removeBtn}
+                  onClick={() =>  removeItem(id) }
+                >
+                  Excluir
+                </button>
               </td>
           </tr>
         )) }

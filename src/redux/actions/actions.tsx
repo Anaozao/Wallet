@@ -1,10 +1,12 @@
-import { Dispatch, ExpenseType, LoginType } from "../../types"
+import { Dispatch, ExpenseType, LoginType, SetEditType } from "../../types"
 import { fetchApi } from "../../utils/API"
 
 export const SAVE_LOGIN = 'SAVE_LOGIN'
 export const GET_CURRENCIES = 'GET_CURRENCIES'
 export const SAVE_EXPENSE = 'SAVE_EXPENSE'
 export const REMOVE_EXPENSE = 'REMOVE_EXPENSE'
+export const EDIT_EXPENSE = 'EDIT_EXPENSE'
+export const SET_EDIT = 'SET_EDIT'
 
 export const saveLogin = (payload: LoginType) => {
   return {
@@ -54,6 +56,20 @@ export function saveExpenses(expense: ExpenseType) {
 export const removeExpense = (payload: ExpenseType[]) => {
   return {
     type: REMOVE_EXPENSE,
+    payload,
+  }
+}
+
+export const setEdit = (payload: SetEditType) => {
+  return {
+    type: SET_EDIT,
+    payload,
+  }
+}
+
+export const editExpenses = (payload: ExpenseType[]) => {
+  return {
+    type: EDIT_EXPENSE,
     payload,
   }
 }

@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux"
 import { Dispatch, ExpenseType, ReduxState } from "../../types"
 import { useState } from "react"
-import { saveExpenses } from "../../redux/actions/actions";
+import { editExpenses, saveExpenses, setEdit, } from "../../redux/actions/actions";
 import styles from './WalletForm.module.css'
 
 function WalletForm() {
   const { currencies } = useSelector((state: ReduxState) => state.walletReducer)
+  const { expenses } = useSelector((state: ReduxState) => state.walletReducer)
   const dispatch: Dispatch = useDispatch();
+  const { edit } = useSelector((state: ReduxState) => state.walletReducer)
   const [expense, setExpense] = useState<ExpenseType>({
     value: '',
     currency: 'USD',
@@ -51,6 +53,28 @@ function WalletForm() {
       value.length < 1
       || description.length < 2
     )
+  }
+
+  const confirmEdit = () => {
+    const { value, category, currency, method, description} = expense
+    const exchangeRates = expenses.find((expense) => expense.id === edit.expenseId)?.exchangeRates
+    const newExpense = { value, currency, method , category, description, exchangeRates: exchangeRates, id: edit.expenseId }
+  
+    const newExpenses = expenses.map((expenseItem) => 
+      expenseItem.id === edit.expenseId ? newExpense : expenseItem
+    )
+
+    setExpense({
+      value: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      category: 'Alimentação',
+      description: '',
+      id: expense.id,
+    })
+    
+    dispatch(editExpenses(newExpenses))
+    dispatch(setEdit({edit: false, expenseId: 0}))
   }
 
   return (
@@ -125,14 +149,25 @@ function WalletForm() {
           />
         </div>
         <div className={`${styles.inputDivs} ${styles.buttonDiv}`}>
-          <button
-            className={styles.button}
-            type="button"
-            onClick={ handleSave }
-            disabled={ validadeForm() }
-          >
-            Adicionar despesa
-          </button>
+          {!edit.edit ? (
+            <button
+              className={styles.button}
+              type="button"
+              onClick={ handleSave }
+              disabled={ validadeForm() }
+            >
+              Adicionar despesa
+            </button>
+          ): (
+            <button
+              className={styles.button}
+              type="button"
+              onClick={ confirmEdit }
+              disabled={ validadeForm() }
+            >
+              Editar despesa
+            </button>
+          )}
         </div>
       </form>
   )

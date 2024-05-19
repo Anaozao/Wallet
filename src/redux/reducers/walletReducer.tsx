@@ -1,9 +1,13 @@
 import { ActionType } from "../../types"
-import { GET_CURRENCIES, REMOVE_EXPENSE, SAVE_EXPENSE } from "../actions/actions"
+import { EDIT_EXPENSE, GET_CURRENCIES, REMOVE_EXPENSE, SAVE_EXPENSE, SET_EDIT } from "../actions/actions"
 
 const INITIAL_STATE = {
   currencies: [],
-  expenses: []
+  expenses: [],
+  edit: {
+    edit: false,
+    expenseId: 0
+  }
 }
 
 const walletReducer = (state = INITIAL_STATE, action: ActionType ) => {
@@ -19,6 +23,16 @@ const walletReducer = (state = INITIAL_STATE, action: ActionType ) => {
         expenses: [...state.expenses, action.payload]
       }
     case REMOVE_EXPENSE:
+      return {
+        ...state,
+        expenses: action.payload
+      }
+    case SET_EDIT:
+      return {
+        ...state,
+        edit: action.payload
+      }  
+    case EDIT_EXPENSE:
       return {
         ...state,
         expenses: action.payload

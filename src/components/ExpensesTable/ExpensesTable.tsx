@@ -18,7 +18,7 @@ function ExpensesTable() {
     dispatch(setEdit({edit: true, expenseId: id }))
   }
 
-  if (expenses.length < 1) return <h1>Nenhuma despesa na lista</h1>
+  if (expenses.length < 1) return <h1 className={styles.emptyMessage}>Nenhuma despesa na lista</h1>
   return (
     <table className={styles.table}>
       <thead className={styles.thead}>

@@ -61,8 +61,8 @@ function WalletForm() {
     const exchangeRates = expenses.find((expense) => expense.id === edit.expenseId)?.exchangeRates
     const newExpense = { value, currency, method , category, description, exchangeRates: exchangeRates, id: edit.expenseId }
   
-    const newExpenses = expenses.map((expenseItem) => 
-      expenseItem.id === edit.expenseId ? newExpense : expenseItem
+    const newExpenses = expenses.map((expense) => 
+      expense.id === edit.expenseId ? newExpense : expense
     )
 
     setExpense({

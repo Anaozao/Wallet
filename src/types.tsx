@@ -8,7 +8,7 @@ export type LoginType = {
 
 export type ActionType = {
   type: string,
-  payload: LoginType
+  payload: any
 }
 
 export type ReduxState = {
@@ -51,7 +51,7 @@ export type ExpenseType = {
   category: string,
   description: string,
   id: number,
-  exchangeRates?: any
+  exchangeRates?: CurrencyType[]
 }
 
 export type SetEditType = {

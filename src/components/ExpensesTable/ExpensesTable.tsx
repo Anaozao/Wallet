@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ReduxState } from "../../types";
 import styles from './ExpensesTable.module.css'
 import { removeExpense, setEdit } from "../../redux/actions/actions";
+import React from "react";
 
 function ExpensesTable() {
   const dispatch = useDispatch()
@@ -11,6 +12,7 @@ function ExpensesTable() {
 
   const removeItem = (id: number) => {
     const newExpenses = expenses.filter((expense) => expense.id !== id)
+    localStorage.setItem('expenses', JSON.stringify(newExpenses))
     dispatch(removeExpense(newExpenses))
   }
 
@@ -42,8 +44,8 @@ function ExpensesTable() {
               <td>{method}</td>
               <td>{value}</td>
               <td>{currency}</td>
-              <td>{Number((exchangeRates[currency].ask)).toFixed(2)}</td>
-              <td>{(Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)}</td>
+              <td>{exchangeRates && Number((exchangeRates[currency].ask)).toFixed(2)}</td>
+              <td>{exchangeRates && (Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)}</td>
               <td>Real</td>
               <td className={styles.buttonTd}>
                 <button

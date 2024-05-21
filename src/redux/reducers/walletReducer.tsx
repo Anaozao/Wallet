@@ -1,7 +1,7 @@
-import { ActionType } from "../../types"
+import { ActionType, ReduxState } from "../../types"
 import { EDIT_EXPENSE, GET_CURRENCIES, REMOVE_EXPENSE, SAVE_EXPENSE, SET_EDIT } from "../actions/actions"
 
-const INITIAL_STATE = {
+const INITIAL_STATE: ReduxState['walletReducer'] = {
   currencies: [],
   expenses: [],
   edit: {
@@ -35,7 +35,11 @@ const walletReducer = (state = INITIAL_STATE, action: ActionType ) => {
     case EDIT_EXPENSE:
       return {
         ...state,
-        expenses: action.payload
+        expenses: state.expenses
+          .map((expense) => (
+            expense.id === action.payload.id ? 
+              {...action.payload, exchangeRates: expense.exchangeRates} : expense)
+          )
       }    
     default:
       return state;

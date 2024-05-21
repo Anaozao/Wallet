@@ -10,14 +10,19 @@ function WalletForm() {
   const dispatch: Dispatch = useDispatch();
   const { edit } = useSelector((state: ReduxState) => state.walletReducer)
   const [formStyle, setFormStyle] = useState(styles.form)
-  const [expense, setExpense] = useState<ExpenseType>({
+
+  const INITIAL_FORM_STATE = {
     value: '',
     currency: 'USD',
     method: 'Dinheiro',
     category: 'Alimentação',
     description: '',
     id: 0,
-  })
+  }
+
+  const [expense, setExpense] = useState<ExpenseType>(INITIAL_FORM_STATE)
+
+
 
   const formatValue = (value: string) => {
     return value.replace(/\D/g, '');
@@ -36,16 +41,13 @@ function WalletForm() {
     })
   }
 
-  const handleSave = () => {
-    dispatch(saveExpenses(expense))
-    setExpense({
-      value: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      category: 'Alimentação',
-      description: '',
-      id: expense.id + 1,
-    })
+  const handleSave = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    dispatch(saveExpenses(expense));
+    localStorage.setItem('expenses', JSON.stringify([...expenses, expense]));
+    setExpense((prev) => (
+      {...INITIAL_FORM_STATE, id: prev.id + 1})
+    );
   }
 
   const validadeForm = () => {
@@ -56,25 +58,13 @@ function WalletForm() {
     )
   }
 
-  const confirmEdit = () => {
+  const confirmEdit = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault()
     const { value, category, currency, method, description} = expense
-    const exchangeRates = expenses.find((expense) => expense.id === edit.expenseId)?.exchangeRates
-    const newExpense = { value, currency, method , category, description, exchangeRates: exchangeRates, id: edit.expenseId }
-  
-    const newExpenses = expenses.map((expense) => 
-      expense.id === edit.expenseId ? newExpense : expense
-    )
-
-    setExpense({
-      value: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      category: 'Alimentação',
-      description: '',
-      id: expense.id,
-    })
+    const newExpense = { value, currency, method , category, description, id: edit.expenseId }
+    setExpense({...INITIAL_FORM_STATE, id: expense.id})
     
-    dispatch(editExpenses(newExpenses))
+    dispatch(editExpenses(newExpense))
     dispatch(setEdit({edit: false, expenseId: 0}))
   }
 
@@ -161,7 +151,7 @@ function WalletForm() {
           {!edit.edit ? (
             <button
               className={styles.button}
-              type="button"
+              type="submit"
               onClick={ handleSave }
               disabled={ validadeForm() }
             >
@@ -171,7 +161,7 @@ function WalletForm() {
             <div className={styles.editBtnsDiv}>
               <button
                 className={styles.button}
-                type="button"
+                type="submit"
                 onClick={ confirmEdit }
                 disabled={ validadeForm() }
               >

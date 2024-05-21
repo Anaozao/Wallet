@@ -67,7 +67,7 @@ export const setEdit = (payload: SetEditType) => {
   }
 }
 
-export const editExpenses = (payload: ExpenseType[]) => {
+export const editExpenses = (payload: ExpenseType) => {
   return {
     type: EDIT_EXPENSE,
     payload,

@@ -1,4 +1,5 @@
-import { ActionType, ReduxState } from "../../types"
+import { AnyAction } from "redux"
+import { ReduxState } from "../../types"
 import { EDIT_EXPENSE, GET_CURRENCIES, REMOVE_EXPENSE, SAVE_EXPENSE, SET_EDIT } from "../actions/actions"
 
 const INITIAL_STATE: ReduxState['walletReducer'] = {
@@ -10,7 +11,7 @@ const INITIAL_STATE: ReduxState['walletReducer'] = {
   }
 }
 
-const walletReducer = (state = INITIAL_STATE, action: ActionType ) => {
+const walletReducer = (state = INITIAL_STATE, action: AnyAction ) => {
   switch (action.type) {
     case GET_CURRENCIES:
       return {

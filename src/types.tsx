@@ -6,10 +6,10 @@ export type LoginType = {
   password: string
 }
 
-export type ActionType = {
-  type: string,
-  payload: any
-}
+// export type ActionType = {
+//   type: string,
+//   payload: any
+// }
 
 export type ReduxState = {
   loginReducer: {

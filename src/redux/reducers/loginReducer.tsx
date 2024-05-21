@@ -1,4 +1,4 @@
-import { ActionType } from "../../types"
+import { AnyAction } from "redux"
 import { SAVE_LOGIN } from "../actions/actions"
 
 
@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   password: ''
 }
 
-const loginReducer = (state = INITIAL_STATE, action: ActionType) => {
+const loginReducer = (state = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {
     case SAVE_LOGIN:
       return {

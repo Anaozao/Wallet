@@ -55,7 +55,7 @@ function LoginForm() {
         <div className={styles.passwordDiv}>
           <label htmlFor="password-input"></label>
           <input
-            placeholder="Senha"
+            placeholder="Senha (min 6 caracteres)"
             className={styles.passwordInput}
             type="password"
             id="password-input"

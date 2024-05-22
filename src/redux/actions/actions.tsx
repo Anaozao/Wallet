@@ -1,4 +1,4 @@
-import { Dispatch, ExpenseType, LoginType, SetEditType } from "../../types"
+import { CurrencyType, Dispatch, ExpenseType, LoginType, SetEditType } from "../../types"
 import { fetchApi } from "../../utils/API"
 
 export const SAVE_LOGIN = 'SAVE_LOGIN'
@@ -45,7 +45,7 @@ const getExpense = (payload: ExpenseType) => {
 export function saveExpenses(expense: ExpenseType) {
   return async (dispatch: Dispatch) => {
     try {
-      const data = await fetchApi('https://economia.awesomeapi.com.br/json/all')
+      const data: CurrencyType[] = await fetchApi('https://economia.awesomeapi.com.br/json/all')
       dispatch(getExpense({...expense, exchangeRates: data }))
     } catch (error) {
       console.error(error)

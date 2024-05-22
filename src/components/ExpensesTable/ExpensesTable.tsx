@@ -37,34 +37,37 @@ function ExpensesTable() {
         </tr>
       </thead>
       <tbody className={styles.tbody}>
-        { expenses.map(({description, category, currency, id, method, value, exchangeRates}) => (
-          <tr key={id} className={styles.expenses}>
-              <td>{description}</td>
-              <td>{category}</td>
-              <td>{method}</td>
-              <td>{value}</td>
-              <td>{currency}</td>
-              <td>{exchangeRates && Number((exchangeRates[currency].ask)).toFixed(2)}</td>
-              <td>{exchangeRates && (Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)}</td>
-              <td>Real</td>
-              <td className={styles.buttonTd}>
-                <button
-                  disabled={edit}
-                  className={styles.editBtn}
-                  onClick={() => handleEdit(id)}
-                >
-                  Editar
-                </button>
-                <button
-                  disabled={edit}
-                  className={styles.removeBtn}
-                  onClick={() =>  removeItem(id) }
-                >
-                  Excluir
-                </button>
-              </td>
-          </tr>
-        )) }
+        { expenses.map(({description, category, currency, id, method, value, exchangeRates}) => {
+          // const curr = exchangeRates && exchangeRates[currency].ask
+          return (
+            <tr key={id} className={styles.expenses}>
+                <td>{description}</td>
+                <td>{category}</td>
+                <td>{method}</td>
+                <td>{value}</td>
+                <td>{currency}</td>
+                <td>{exchangeRates && Number((exchangeRates[currency].ask)).toFixed(2)}</td>
+                <td>{exchangeRates && (Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)}</td>
+                <td>Real</td>
+                <td className={styles.buttonTd}>
+                  <button
+                    disabled={edit}
+                    className={styles.editBtn}
+                    onClick={() => handleEdit(id)}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    disabled={edit}
+                    className={styles.removeBtn}
+                    onClick={() =>  removeItem(id) }
+                  >
+                    Excluir
+                  </button>
+                </td>
+            </tr>
+          )
+        })}
       </tbody>
     </table>
   )

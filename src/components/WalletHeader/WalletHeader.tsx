@@ -8,7 +8,10 @@ function WalletHeader() {
   const { expenses } = useSelector((state: ReduxState) => state.walletReducer)
 
   const total = expenses.reduce((acc, expense) => { 
-    return acc + (Number(expense.value) * Number(expense.exchangeRates[expense.currency].ask))
+    return acc + (Number(expense.value) * Number(
+      expense.exchangeRates
+      && expense.exchangeRates[expense.currency as unknown as number].ask
+    ))
   }, 0)
 
   const getEmail = () => {

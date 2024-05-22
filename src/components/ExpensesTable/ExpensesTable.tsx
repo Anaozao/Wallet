@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { ReduxState } from "../../types";
 import styles from './ExpensesTable.module.css'
 import { removeExpense, setEdit } from "../../redux/actions/actions";
-import React from "react";
 
 function ExpensesTable() {
   const dispatch = useDispatch()
@@ -46,8 +45,8 @@ function ExpensesTable() {
                 <td>{method}</td>
                 <td>{value}</td>
                 <td>{currency}</td>
-                <td>{exchangeRates && Number((exchangeRates[currency].ask)).toFixed(2)}</td>
-                <td>{exchangeRates && (Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)}</td>
+                <td>{exchangeRates && Number((exchangeRates[currency as unknown as number].ask)).toFixed(2)}</td>
+                <td>{exchangeRates && (Number(value) * Number(exchangeRates[currency as unknown as number].ask)).toFixed(2)}</td>
                 <td>Real</td>
                 <td className={styles.buttonTd}>
                   <button
